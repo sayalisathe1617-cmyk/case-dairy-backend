@@ -2,6 +2,7 @@ package com.casedairy.backend.controller;
 
 import com.casedairy.backend.model.LocationMaster;
 import com.casedairy.backend.repository.LocationRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,13 +11,13 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*") // 🔥 IMPORTANT (Flutter Web)
-@RequestMapping("/locations")
+@RequestMapping("/location")
 public class LocationController {
 
     @Autowired
     private LocationRepository repo;
 
-    // 🔥 SAVE VILLAGE
+    // 🔥 SAVE
     @PostMapping("/save")
     public LocationMaster save(@RequestBody LocationMaster loc) {
         return repo.save(loc);
@@ -25,11 +26,10 @@ public class LocationController {
     // 🔥 GET ALL
     @GetMapping("/all")
     public List<LocationMaster> getAll() {
-
         return repo.findAll();
     }
 
-    // 🔥 GET BY VILLAGE (for dropdown)
+    // 🔥 GET BY VILLAGE
     @GetMapping("/byVillage/{village}")
     public List<LocationMaster> getByVillage(@PathVariable String village) {
         return repo.findByVillageContaining(village);
@@ -54,10 +54,15 @@ public class LocationController {
 
         return null;
     }
+
     // 🔥 DELETE
     @DeleteMapping("/delete/{village}")
     public void delete(@PathVariable String village) {
+
         List<LocationMaster> list = repo.findByVillageContaining(village);
-        repo.deleteAll(list);
+
+        if (!list.isEmpty()) {
+            repo.delete(list.get(0)); // 🔥 only first delete
+        }
     }
 }
