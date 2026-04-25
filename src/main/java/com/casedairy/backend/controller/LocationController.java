@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*") // 🔥 IMPORTANT (Flutter Web)
-@RequestMapping("/location")
+@RequestMapping("/locations")
 public class LocationController {
 
     @Autowired
@@ -25,13 +25,14 @@ public class LocationController {
     // 🔥 GET ALL
     @GetMapping("/all")
     public List<LocationMaster> getAll() {
+
         return repo.findAll();
     }
 
     // 🔥 GET BY VILLAGE (for dropdown)
     @GetMapping("/byVillage/{village}")
     public List<LocationMaster> getByVillage(@PathVariable String village) {
-        return repo.findAll(); // 🔥 TEST ONLY
+        return repo.findByVillageContaining(village);
     }
 
     // 🔥 UPDATE
@@ -57,8 +58,6 @@ public class LocationController {
     @DeleteMapping("/delete/{village}")
     public void delete(@PathVariable String village) {
         List<LocationMaster> list = repo.findByVillageContaining(village);
-        if (!list.isEmpty()) {
-            repo.delete(list.get(0));
-        }
+        repo.deleteAll(list);
     }
 }
