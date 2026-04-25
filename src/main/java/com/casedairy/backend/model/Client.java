@@ -3,20 +3,25 @@ package com.casedairy.backend.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "client")
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; // 🔥 FIXED
+    private Integer id;
 
     private String name;
     private String address;
     private String location;
     private String email;
+
+    @Column(name = "contact_name")
     private String contactName;
+
+    @Column(name = "contact_number")
     private String contactNumber;
 
-    // 🔥 GETTERS & SETTERS
+    // 🔹 GETTERS & SETTERS
 
     public Integer getId() {
         return id;

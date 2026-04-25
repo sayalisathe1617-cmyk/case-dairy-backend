@@ -2,42 +2,50 @@ package com.casedairy.backend.model;
 
 import jakarta.persistence.*;
 
-
 @Entity
+@Table(name = "project")
 public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
-    private int clientId;
+    @Column(name = "client_id")
+    private Integer clientId;
+
+    // 🔥 ADD THIS (for list display)
+    @Column(name = "client_name")
     private String clientName;
+
+    // 🔥 ADD THIS (for list display)
+    @Column(name = "location")
     private String location;
 
+    @Column(name = "project_name")
     private String projectName;
+
+    // 🔥 IMPORTANT: NH CODE mapping
+    @Column(name = "nh_code")
     private String projectCode;
+
+    @Column(name = "project_package")
     private String projectPackage;
 
-    private String district;
-    private String taluka;
-    private String village;
+    // 🔹 GETTERS & SETTERS
 
-    // getters setters
-
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getClientId() {
+    public Integer getClientId() {
         return clientId;
     }
 
-    public void setClientId(int clientId) {
+    public void setClientId(Integer clientId) {
         this.clientId = clientId;
     }
 
@@ -79,29 +87,5 @@ public class Project {
 
     public void setProjectPackage(String projectPackage) {
         this.projectPackage = projectPackage;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
-    }
-
-    public String getTaluka() {
-        return taluka;
-    }
-
-    public void setTaluka(String taluka) {
-        this.taluka = taluka;
-    }
-
-    public String getVillage() {
-        return village;
-    }
-
-    public void setVillage(String village) {
-        this.village = village;
     }
 }
